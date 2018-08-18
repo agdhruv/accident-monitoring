@@ -7,7 +7,7 @@ var client = new twilio(accountSid, authToken);
 var sendWhatsappMessage = (message) => {
 	client.messages
 		.create({
-			body: 'Hello there!',
+			body: message,
 			from: 'whatsapp:+14155238886',
 			to: 'whatsapp:+919013699205'
 		})
@@ -18,7 +18,7 @@ var sendWhatsappMessage = (message) => {
 var sendSMS = (message) => {
 	client.messages
 	.create({
-		body: 'This is the ship that made the Kessel Run in fourteen parsecs?',
+		body: message,
 		from: '+18325511392',
 		to: '+919013699205'
 	})
