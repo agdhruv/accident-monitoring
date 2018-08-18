@@ -33,12 +33,11 @@ h1{
 }
 .accident-alert h2{
 	text-align: center;
-	font-size : 3vw;
+	font-size : 5vw;
 	color: #fff;
-	background: #C41E3D ; //#e91e63;
 	background: #1488CC;  /* fallback for old browsers */
-background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
-background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	background: -webkit-linear-gradient(to right, #2B32B2, #1488CC);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 	padding: 10px 0;
 	font-weight: 300;
@@ -46,7 +45,7 @@ background: linear-gradient(to right, #2B32B2, #1488CC); /* W3C, IE 10+/ Edge, F
 
 .accident-alert h2 span{
 	font-weight: 300;
-	font-size: 20px;
+	font-size: 3vw;
 	font-style: italic;
 }
 
