@@ -12,6 +12,7 @@ var server = http.createServer(app);
 var io = socketIO(server);
 
 var {getLocationFromCameraId} = require('./utils/utils');
+var {sendSMS, sendWhatsappMessage} = require('./send_messages/send_messages');
 
 app.use(express.static(publicPath));
 app.use(bodyParser.json());
@@ -26,15 +27,17 @@ io.on('connection', (socket) => {
 	});
 });
 
-// route which is hit from python file running at camera site
-	// camera id for location
-	// accident time
 app.post('/accident', (req, res) => {
 	let {cameraId} = req.body;
 
 	let location = getLocationFromCameraId(cameraId);
 
 	let time = moment().valueOf()
+
+	var message = `An accident has occurred at https://www.google.com/maps?q=${location.latitude},${location.longitude}. Please make the necessary assistance accommodations.`;
+
+	sendSMS(message);
+	sendWhatsappMessage(message);
 
 	// emit accident to all online users
 	req.app.io.emit('accident', {

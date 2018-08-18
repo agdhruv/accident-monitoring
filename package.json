@@ -16,6 +16,7 @@
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
     "moment": "^2.22.2",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "twilio": "^3.19.1"
   }
 }
