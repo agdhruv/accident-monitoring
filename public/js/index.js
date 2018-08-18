@@ -2,6 +2,15 @@ var socket = io();
 
 socket.on('connect', function () {
 	console.log('Connected to server');
+
+	if (!navigator.geolocation) {
+		return;
+	}
+
+	navigator.geolocation.getCurrentPosition(function (position) {
+		console.log('Thank you for location permission.');
+	});
+
 });
 
 socket.on('disconnect', function () {
@@ -9,5 +18,16 @@ socket.on('disconnect', function () {
 });
 
 socket.on('accident', (data) => {
-	console.log(data);
+	var accidentLocation = data.location;
+	var currentLocation;
+
+	navigator.geolocation.getCurrentPosition(function (position) {
+		var currentLocation = {
+			longitude: position.coords.longitude,
+			latitude: position.coords.latitude
+		};
+
+		
+	};
+
 });
