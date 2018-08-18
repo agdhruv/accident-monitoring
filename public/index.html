@@ -6,16 +6,72 @@
 	<title>Accident Detection</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-	<div class="container">
+	<div class="container">	
 		
-		
+		<div class="row page-heading">
+			<div class="col s12">
+				<h3 class="center">
+					Vehicle Collision Detection
+				</h3>
+			</div>
+		</div>
+
+		<div class="row accident-alert">
+		    <div class="col s12">
+				<div class="chip red lighten-3">
+				    Accident Alert
+				</div> at time
+				<h5>
+					Sector - 37, Gurgaon
+				</h5>
+				<p>
+					You are <b>10 minutes away</b> from the site of the accident.
+				</p>
+				<p>
+					You are <b>5 kilometres away</b> from the site of the accident.
+				</p>
+		    </div>
+		</div>
+
+		<div class="row accident-alert">
+		    <div class="col s12">
+				<div class="chip red lighten-3">
+				    Accident Alert
+				</div> at time
+				<h5>
+					Sector - 37, Gurgaon
+				</h5>
+				<p>
+					You are <b>10 minutes away</b> from the site of the accident.
+				</p>
+				<p>
+					You are <b>5 kilometres away</b> from the site of the accident.
+				</p>
+		    </div>
+		</div>
 
 	</div>
 
 	<script type="text/template" id="alert-template">
-		
+		<div class="row accident-alert">
+		    <div class="col s12">
+				<div class="chip red lighten-3">
+				    Accident Alert
+				</div> at {{time}}
+				<h5>
+					{{address}}
+				</h5>
+				<p>
+					You are <b>{{duration}} away</b> from the site of the accident.
+				</p>
+				<p>
+					You are <b>{{distance}} away</b> from the site of the accident.
+				</p>
+		    </div>
+		</div>
 	</script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
@@ -23,6 +79,7 @@
 	<script src="/js/libs/jquery-3.3.1.min.js"></script>
 	<script src="/js/libs/moment.js"></script>
 	<script src="/js/libs/mustache.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkA09cfePUtb2975Dd90OKGaidfewrHoE&libraries=places"></script>
 	<script src="/js/index.js"></script>
 </body>
 </html>

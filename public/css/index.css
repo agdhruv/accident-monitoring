@@ -1,0 +1,15 @@
+.accident-alert {
+	border-bottom: 1px solid #ddd;
+}
+
+	.accident-alert h3 {
+		color: #5d5d5d;
+	}
+
+	.accident-alert p {
+		color: #848484;
+	}
+
+		.accident-alert p b {
+			color: #4a4a4a;
+		}

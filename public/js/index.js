@@ -22,7 +22,6 @@ socket.on('connect', function () {
 	navigator.geolocation.getCurrentPosition(function (position) {
 		console.log('Thank you for location permission.');
 	});
-
 });
 
 socket.on('disconnect', function () {
@@ -38,18 +37,48 @@ socket.on('accident', (data) => {
 			latitude: position.coords.latitude
 		};
 
-		const API_KEY = 'AIzaSyDkA09cfePUtb2975Dd90OKGaidfewrHoE';
-		const URL = 'https://maps.googleapis.com/maps/api/distancematrix/json?&origins=' + currentLocation.latitude +  ',' + currentLocation.longitude + '&destinations=' + accidentLocation.latitude + ',' + accidentLocation.longitude + '&key=' + API_KEY;
-		
-		$.ajax({
-			type: 'GET',
-			url: URL,
-			crossDomain: true,
-			success: function (data) {
-				sayMessage('There has been an accident 10 minutes away from you. Please slow down and drive carefully.');
-				console.log(data);
-			},
-			dataType: 'json'
+		const userAccidentRelationship = getDistanceFromUser(currentLocation, accidentLocation);
+
+		// if (userAccidentRelationship.accidentDistance <= 5000) {
+		// 	// tell user location of accident, distance, and expected time.
+		// }
+
+		var template = $('#alert-template').html();
+		var html = Mustache.render(template, {
+			text: 
 		});
+
 	});
 });
+
+function getDistanceFromUser (currentLocation, accidentLocation) {
+	var origin = {
+		lat: currentLocation.latitude,
+		lng: currentLocation.longitude
+	}
+
+	var destination = {
+		lat: accidentLocation.latitude,
+		lng: accidentLocation.longitude
+	}
+
+	var service = new google.maps.DistanceMatrixService;
+
+	service.getDistanceMatrix({
+		origins: [origin],
+		destinations: [destination],
+		travelMode: 'DRIVING',
+		unitSystem: google.maps.UnitSystem.METRIC,
+		avoidHighways: false,
+		avoidTolls: false
+	}, function (response, status) {
+		if (status === 'OK') {
+			return {
+				accidentAddress: response.destinationAddress,
+				accidentDistance: response.rows[0].elements.distance.value, // in metres
+				accidentDuration: response.rows[0].elements.duration.text
+			}
+		}
+	});
+}
+
