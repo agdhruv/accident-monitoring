@@ -19,14 +19,15 @@ socket.on('disconnect', function () {
 
 socket.on('accident', (data) => {
 	var accidentLocation = data.location;
-	var currentLocation;
 
 	navigator.geolocation.getCurrentPosition(function (position) {
 		var currentLocation = {
 			longitude: position.coords.longitude,
 			latitude: position.coords.latitude
 		};
-
+		const API_KEY = 'AIzaSyDkA09cfePUtb2975Dd90OKGaidfewrHoE';
+		const URL = 'https://maps.googleapis.com/maps/api/distancematrix/json?&origins=' + currentLocation.longitude +  ',' +currentLocation.latitude + '&destinations=' accidentLocation.longitude + ',' + accidentLocation.latitude + '&key=' + API_KEY;
+		
 	};
 
 });
