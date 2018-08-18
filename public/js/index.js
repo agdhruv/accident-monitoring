@@ -25,9 +25,18 @@ socket.on('accident', (data) => {
 			longitude: position.coords.longitude,
 			latitude: position.coords.latitude
 		};
-		const API_KEY = 'AIzaSyDkA09cfePUtb2975Dd90OKGaidfewrHoE';
-		const URL = 'https://maps.googleapis.com/maps/api/distancematrix/json?&origins=' + currentLocation.longitude +  ',' +currentLocation.latitude + '&destinations=' accidentLocation.longitude + ',' + accidentLocation.latitude + '&key=' + API_KEY;
-		
-	};
 
+		const API_KEY = 'AIzaSyDkA09cfePUtb2975Dd90OKGaidfewrHoE';
+		const URL = 'https://maps.googleapis.com/maps/api/distancematrix/json?&origins=' + currentLocation.latitude +  ',' + currentLocation.longitude + '&destinations=' + accidentLocation.latitude + ',' + accidentLocation.longitude + '&key=' + API_KEY;
+		
+		$.ajax({
+			type: 'GET',
+			url: URL,
+			crossDomain: true,
+			success: function (data) {
+				console.log(data);
+			},
+			dataType: 'json'
+		});
+	});
 });
