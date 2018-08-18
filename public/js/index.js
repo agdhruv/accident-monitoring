@@ -45,7 +45,7 @@ socket.on('accident', (data) => {
 
 		var template = $('#alert-template').html();
 		var html = Mustache.render(template, {
-			text: 
+			text:
 		});
 
 	});
@@ -81,4 +81,3 @@ function getDistanceFromUser (currentLocation, accidentLocation) {
 		}
 	});
 }
-
