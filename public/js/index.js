@@ -45,7 +45,10 @@ socket.on('accident', (data) => {
 
 		var template = $('#alert-template').html();
 		var html = Mustache.render(template, {
-			text:
+			time: moment(data.time).local().format('HH:mm:ss'),
+			distance: userAccidentRelationship.accidentDistance,
+			duration: userAccidentRelationship.accidentDuration,
+			address: userAccidentRelationship.accidentAddress
 		});
 
 	});
