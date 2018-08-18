@@ -27,7 +27,6 @@ socket.on('accident', (data) => {
 			latitude: position.coords.latitude
 		};
 
-		
 	};
 
 });
