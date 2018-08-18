@@ -1,7 +1,6 @@
 var socket = io();
 
 var sayMessage = function (message) {
-
 	if ('speechSynthesis' in window) {
 		var msg = new SpeechSynthesisUtterance(message);
 		var voices = window.speechSynthesis.getVoices();
@@ -9,7 +8,6 @@ var sayMessage = function (message) {
 		msg.rate = 7;
 		window.speechSynthesis.speak(msg);
 	}
-
 }
 
 socket.on('connect', function () {
@@ -37,50 +35,50 @@ socket.on('accident', (data) => {
 			latitude: position.coords.latitude
 		};
 
-		const userAccidentRelationship = getDistanceFromUser(currentLocation, accidentLocation);
+		var origin = {
+			lat: currentLocation.latitude,
+			lng: currentLocation.longitude
+		}
+
+		var destination = {
+			lat: accidentLocation.latitude,
+			lng: accidentLocation.longitude
+		}
+
+		var service = new google.maps.DistanceMatrixService;
+
+		service.getDistanceMatrix({
+			origins: [origin],
+			destinations: [destination],
+			travelMode: 'DRIVING',
+			unitSystem: google.maps.UnitSystem.METRIC,
+			avoidHighways: false,
+			avoidTolls: false
+		}, function (response, status) {
+			if (status === 'OK') {
+				const userAccidentRelationship = {
+					accidentAddress: response.destinationAddresses[0],
+					accidentDistance: response.rows[0].elements[0].distance.value, // in metres
+					accidentDuration: response.rows[0].elements[0].duration.text
+				};
+
+				var template = $('#alert-template').html();
+				var html = Mustache.render(template, {
+					time: moment(data.time).format('h:mm a'),
+					distance: userAccidentRelationship.accidentDistance / 1000,
+					duration: userAccidentRelationship.accidentDuration,
+					address: userAccidentRelationship.accidentAddress
+				});
+
+				$('#alert-container').prepend(html);
+
+				sayMessage('There has been an accident ' + Math.round(userAccidentRelationship.accidentDistance/1000) + ' kilometres away from you. You are expected to reach there in ' + userAccidentRelationship.accidentDuration + '. Please be careful and drive slowly. We have alerted the local police and hospital for accident assistance.');
+			}
+		});
 
 		// if (userAccidentRelationship.accidentDistance <= 5000) {
 		// 	// tell user location of accident, distance, and expected time.
 		// }
 
-		var template = $('#alert-template').html();
-		var html = Mustache.render(template, {
-			time: moment(data.time).local().format('HH:mm:ss'),
-			distance: userAccidentRelationship.accidentDistance,
-			duration: userAccidentRelationship.accidentDuration,
-			address: userAccidentRelationship.accidentAddress
-		});
-
 	});
 });
-
-function getDistanceFromUser (currentLocation, accidentLocation) {
-	var origin = {
-		lat: currentLocation.latitude,
-		lng: currentLocation.longitude
-	}
-
-	var destination = {
-		lat: accidentLocation.latitude,
-		lng: accidentLocation.longitude
-	}
-
-	var service = new google.maps.DistanceMatrixService;
-
-	service.getDistanceMatrix({
-		origins: [origin],
-		destinations: [destination],
-		travelMode: 'DRIVING',
-		unitSystem: google.maps.UnitSystem.METRIC,
-		avoidHighways: false,
-		avoidTolls: false
-	}, function (response, status) {
-		if (status === 'OK') {
-			return {
-				accidentAddress: response.destinationAddress,
-				accidentDistance: response.rows[0].elements.distance.value, // in metres
-				accidentDuration: response.rows[0].elements.duration.text
-			}
-		}
-	});
-}

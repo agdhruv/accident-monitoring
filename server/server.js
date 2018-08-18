@@ -2,7 +2,8 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const moment = require('moment');
 
 const publicPath = path.join(__dirname, '../public');
 const port = process.env.PORT || 3000;
@@ -29,9 +30,11 @@ io.on('connection', (socket) => {
 	// camera id for location
 	// accident time
 app.post('/accident', (req, res) => {
-	let {cameraId, time} = req.body;
+	let {cameraId} = req.body;
 
 	let location = getLocationFromCameraId(cameraId);
+
+	let time = moment().valueOf()
 
 	// emit accident to all online users
 	req.app.io.emit('accident', {
