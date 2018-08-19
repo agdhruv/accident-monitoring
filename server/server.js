@@ -36,9 +36,11 @@ app.post('/accident', (req, res) => {
 
 	var message = `An accident has occurred at https://www.google.com/maps?q=${location.latitude},${location.longitude}. Please make the necessary assistance accommodations.`;
 
-	sendSMS(message);
-	sendWhatsappMessage(message);
+	// // not sending messages for now
+	// sendSMS(message);
+	// sendWhatsappMessage(message);
 
+	
 	// emit accident to all online users
 	req.app.io.emit('accident', {
 		location
