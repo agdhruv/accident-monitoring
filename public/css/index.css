@@ -8,18 +8,7 @@ body{
 	background: #e2f2fc40;
 	z-index: 1;
 }
-/* .splash-caution{
-	position: absolute;
-	top: 0;
-	left: 0;
-	background: red;
-	width: 100vw;
-} */
 img{
-	/* font-family: 'IBM Plex Serif', serif;
-
-	margin: 50px 0 100px;
-	font-size: 45px; */
 	text-align: center;
 	transform: translateX(calc(50vw - 10vw));
 	width: 20vw;
@@ -33,7 +22,10 @@ img{
 }
 .one{
 	z-index: 10;
-	animation: scaledown 3s;
+	animation: scaledown 15s;
+}
+.oneh2{
+	animation: headingColorChange 15s;
 }
 .accident-alert h2{
 	text-align: center;
@@ -52,7 +44,6 @@ img{
 	font-size: 3vw;
 	font-style: italic;
 }
-
 .alert-details {
 	padding: 25px;
 	font-size: 20px;
@@ -68,7 +59,13 @@ img{
 	padding: 5px 0;
 }
 @-webkit-keyframes scaledown {
-    0% {transform: scale(1.3);}
-	 50% {transform: scale(1.3);}
-    100% {transform: scale(1);}
+    0% {transform: scale(1.2);background: #cc141410;}
+	 80% {transform: scale(1.2);background: #cc141410;}
+    100% {transform: scale(1);background: #1488CC10;}
+}
+
+@keyframes headingColorChange {
+		0%{background: linear-gradient(to right, #d31027, #ea384d);}
+		80%{background: linear-gradient(to right, #d31027, #ea384d);}
+		100%{background: linear-gradient(to right, #2B32B2, #1488CC);}
 }

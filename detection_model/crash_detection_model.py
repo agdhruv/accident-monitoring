@@ -1,9 +1,3 @@
-
-# coding: utf-8
-
-# In[7]:
-
-
 import numpy as np
 import os
 import six.moves.urllib as urllib
@@ -26,26 +20,15 @@ cap = cv2.VideoCapture("v13.mp4")
 sys.path.append("..")
 
 
-# ## Object detection imports
+# # Object detection imports
 # Here are the imports from the object detection module.
-
-# In[3]:
 
 from utils import label_map_util
 
 from utils import visualization_utils as vis_util
 
 
-# # Model preparation 
-
-# ## Variables
-# 
-
-# Any model exported using the `export_inference_graph.py` tool can be loaded here simply by changing `PATH_TO_CKPT` to point to a new .pb file.  
-# 
-# By default we use an "SSD with Mobilenet" model here. See the [detection model zoo](https://github.com/tensorflow/models/blob/master/object_detection/g3doc/detection_model_zoo.md) for a list of other models that can be run out-of-the-box with varying speeds and accuracies.
-
-# In[4]:
+# # Model preparation
 
 # What model to download.
 MODEL_NAME = 'ssd_mobilenet_v1_coco_11_06_2017'
@@ -63,8 +46,6 @@ NUM_CLASSES = 90
 
 # ## Download Model
 
-# In[5]:
-
 # opener = urllib.request.URLopener()
 # opener.retrieve(DOWNLOAD_BASE + MODEL_FILE, MODEL_FILE)
 tar_file = tarfile.open(MODEL_FILE)
@@ -76,8 +57,6 @@ for file in tar_file.getmembers():
 
 # ## Load a (frozen) Tensorflow model into memory.
 
-# In[6]:
-
 detection_graph = tf.Graph()
 with detection_graph.as_default():
   od_graph_def = tf.GraphDef()
@@ -88,9 +67,6 @@ with detection_graph.as_default():
 
 
 # ## Loading label map
-# Label maps map indices to category names, so that when our convolution network predicts `5`, we know that this corresponds to `airplane`.  Here we use internal utility functions, but anything that returns a dictionary mapping integers to appropriate string labels would be fine
-
-# In[7]:
 
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
@@ -98,8 +74,6 @@ category_index = label_map_util.create_category_index(categories)
 
 
 # ## Helper code
-
-# In[8]:
 def cal_collision(boxes,classes,scores):
     for i, b in enumerate(boxes[0]):
             if classes[0][i] == 3 or classes[0][i] == 6 or classes[0][i] == 8:
@@ -124,17 +98,17 @@ def cal_collision(boxes,classes,scores):
                                     return True
                                 else:
                                     return False
-                            
+
                         # cv2.putText(image_np, "COLLISION!", (230, 50), cv2.FONT_HERSHEY_SIMPLEX, 1.0, (255, 255, 255), 2, cv2.LINE_AA)
                         # intersection here is (3, 3, 4, 3.5), or an area of 1*.5=.5
 #                         mid_x = (boxes[0][i][3] + boxes[0][i][1]) / 2
 #                         mid_y = (boxes[0][i][2] + boxes[0][i][3]) / 2
 #                         cv2.putText(image_np, "rasik", (int(mid_x*800, int(mid_y*600)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
 
-                                    
-                        
-    
-    
+
+
+
+
 
 def load_image_into_numpy_array(image):
   (im_width, im_height) = image.size
@@ -151,16 +125,11 @@ def area(a, b):  # returns None if rectangles don't intersect
 def rectArea(xmax, ymax, xmin, ymin):
     x = np.abs(xmax-xmin)
     y = np.abs(ymax-ymin)
-    
+
     return x*y
 # # Detection
 
-# In[9]:
-
 # For the sake of simplicity we will use only 2 images:
-# image1.jpg
-# image2.jpg
-# If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
 PATH_TO_TEST_IMAGES_DIR = 'test_images'
 TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 3) ]
 
@@ -168,7 +137,6 @@ TEST_IMAGE_PATHS = [ os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(
 IMAGE_SIZE = (12, 8)
 
 
-# In[10]:
 
 with detection_graph.as_default():
   with tf.Session(graph=detection_graph) as sess:
@@ -197,14 +165,13 @@ with detection_graph.as_default():
           category_index,
           use_normalized_coordinates=True,
           line_thickness=8)
-    
+
       if cal_collision(boxes, classes, scores):
             cv2.destroyAllWindows()
             break
 
       cv2.imshow('object detection', image_np)
-                                
+
       if cv2.waitKey(25) & 0xFF == ord('q'):
         cv2.destroyAllWindows()
         break
-
