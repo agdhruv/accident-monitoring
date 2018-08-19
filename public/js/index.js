@@ -3,9 +3,6 @@ var socket = io();
 var sayMessage = function (message) {
 	if ('speechSynthesis' in window) {
 		var msg = new SpeechSynthesisUtterance(message);
-		var voices = window.speechSynthesis.getVoices();
-		msg.voice = voices[9];
-		msg.rate = 7;
 		window.speechSynthesis.speak(msg);
 	}
 }
@@ -19,7 +16,7 @@ socket.on('connect', function () {
 
 	navigator.geolocation.getCurrentPosition(function (position) {
 		console.log('Thank you for location permission.');
-	});
+	});	
 });
 
 socket.on('disconnect', function () {
