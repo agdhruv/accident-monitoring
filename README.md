@@ -1,6 +1,6 @@
 # VAHAN
 
-![Logo](./public/imgs/logo.png)
+<img src="./public/imgs/logo.png" height="100">
 
 Accident Monitoring system for cities.
 
