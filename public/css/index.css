@@ -22,10 +22,10 @@ img{
 }
 .one{
 	z-index: 10;
-	animation: scaledown 15s;
+	animation: scaledown 14s;
 }
 .oneh2{
-	animation: headingColorChange 15s;
+	animation: headingColorChange 14s;
 }
 .accident-alert h2{
 	text-align: center;
