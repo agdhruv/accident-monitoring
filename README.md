@@ -43,3 +43,7 @@ Clone the repository and then :
   npm install  
   nodemon server/server.js
   ```
+
+
+## Demo :
+![DEMO GIF](https://raw.githubusercontent.com/agdhruv/accident-monitoring/master/public/imgs/demo.gif)
