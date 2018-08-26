@@ -20,7 +20,7 @@ Accident Monitoring system for cities.
 Clone the repository and then : 
 
 * Crash Detection
-  * [Setup the object detection API](https://github.com/tensorflow/models/tree/master/research/object_detection)
+  * [Setup the object detection API](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md)
   * Run the `crash_detection_model.py` file using **python3**.
   * Ensure that you have the following libraries pre-installed.
     * numpy
